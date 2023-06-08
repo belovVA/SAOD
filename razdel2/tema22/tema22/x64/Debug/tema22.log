@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Vladimir\source\repos\SAOD\tema22\tema22\SortAlgs.h(33,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  tema22.vcxproj -> C:\Users\Vladimir\source\repos\SAOD\tema22\x64\Debug\tema22.exe

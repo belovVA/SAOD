@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Vladimir\source\repos\SAOD\tema24_number2\tema24_number2\main.cpp(6,12): warning C4101: s: неиспользованная локальная переменная
+  tema24_number2.vcxproj -> C:\Users\Vladimir\source\repos\SAOD\tema24_number2\x64\Debug\tema24_number2.exe
