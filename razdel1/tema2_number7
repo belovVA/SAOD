@@ -1,1 +1,138 @@
+#include <iostream>
+#include <random>
+#include <thread>
+#include<chrono>
+#include<stdlib.h>
+#include <ctime>
+#include <stdio.h>
+#include <fcntl.h>
+#include <time.h>
+#include <clocale>
+#include <conio.h>
+#include "windows.h"
+
+using namespace std;
+
+
+struct QueueItem {
+    string value;
+    QueueItem* Next;
+}*First, * Last;
+
+
+void initQueue() {
+    First = new QueueItem;
+    First->Next = NULL;
+    Last = First;
+}
+
+bool isEmpty() {
+    if (First->Next == NULL) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void ShowQueue() {
+    if (!isEmpty()) {
+        QueueItem* current;
+        current = First->Next;
+        int i = 1;
+        while (current != NULL) {
+            cout << current->value << ' ';
+            current = current->Next;
+            i++;
+        }
+        cout << endl;
+    }
+    else {
+        cout << "Queue is empty" << endl;
+    }
+   
+}
+
+void push(char _value) {
+    QueueItem* current = new QueueItem;
+    current->value = _value;
+    current->Next = NULL;
+    Last->Next = current;
+    Last = current;
+}
+
+string pop() {
+    if (!isEmpty()) {
+        QueueItem* current;
+        current = First->Next;
+        First->Next = current->Next;
+        if (isEmpty()) {
+            Last = First;
+        }
+        string _value = current->value;
+        delete current;
+        return _value;
+    }
+    else {
+        cout << "Queue is empty, elem cant be deleted" << endl;
+        return "-1";
+    }
+}
+
+
+void RandomAction() {
+    int randomAction = rand() % 100 + 1;
+    int randomCount = rand() % 3 + 1;
+    bool isPush = randomAction % 2 == 0;
+    if (isEmpty()) isPush = 1;
+    cout << "Действие:" << (isPush ? " Добавление " : " Удаление") << "\nКоличество эллементов: " << randomCount << endl;
+    if (isPush) {
+        cout << "Добавление: ";
+        for (int i = 0; i < randomCount; i++) {
+            char symbol = rand() % 26 + 65;
+            push(symbol);
+            cout << symbol  << ' ';
+        }
+        cout << endl;
+
+    }
+    else {
+        cout << "Удаление: ";
+        for (int i = 0; i < randomCount; i++) {
+            if (!isEmpty()) {
+                cout << pop() << ' ';
+            }
+            else {
+                break;
+            }
+        }
+        cout << endl;
+    }
+    cout << "Состояние очереди: ";
+    ShowQueue();
+}
+
+void start() {
+    srand(time(NULL));
+    char q = '\0';
+    while (q != 'q') {
+        RandomAction();
+        cout << endl;
+        if (_kbhit()) {
+            q = _getch();
+            if (q == 'q' || q == 'й') break;
+            else continue;
+        }
+        else
+            Sleep(2000);
+        cout << endl;
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    initQueue();
+    start();
+    return 0;
+}
 
